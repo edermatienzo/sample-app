@@ -3,10 +3,17 @@ from flask import Flask
 
 app = Flask(__name__)
 
-@app.route('/')
+@app.route("/")
 def home():
-	print('\033[1;34m' + 'I can talk!' + '\033[0m')
+    return '''
+     <form action="/echo_user_input" method="POST">
+         <input name="user_input">
+         <input type="submit" value="Submit!">
+     </form>
+     '''
 
-	return 'Hello. I\'m flask'
-
+@app.route("/echo_user_input", methods=["POST"])
+def echo_input():
+    input_text = request.form.get("user_input", "")
+    return "You entered: " + input_text
 	
